@@ -2,9 +2,9 @@
 name: Test R-universe
 
 on:
-  push:
+  pull_request:
     branches:
-      - copilot/create-r-universe-workflow
+      - main
 
 permissions:
   contents: read
