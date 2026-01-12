@@ -18,16 +18,11 @@
 # - devtools::check()
 
 ## Setup ----
-#' @description Skip the test if not running in a CI environment.
-testthat::skip_if(!testthat:::env_var_is_true("CI"))
-
-#' @description Skip the test on R-universe to avoid long runtimes.
-if (identical(Sys.getenv("R_UNIVERSE"), "true")) {
-  testthat::skip("Skipping test on r-universe")
-}
-
-#' @description Skip the test if calculating code coverage.
-testthat::skip_on_covr()
+#' @description Skip the test unless explicitly enabled for heavy integration testing
+testthat::skip_if_not(
+  testthat:::env_var_is_true("RUN_SLOW_TESTS"),
+  message = "Skipping: RUN_SLOW_TESTS is not set to true."
+)
 
 # Load the model comparison operating model data from the fixtures folder
 load(test_path("fixtures", "integration_test_data.RData"))
