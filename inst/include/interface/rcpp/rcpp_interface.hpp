@@ -167,7 +167,7 @@ Rcpp::NumericVector get_fixed_parameters_vector() {
  * Usage example:
  * \code{.R}
  * set_random_parameters(c(1, 2, 3))
- * catch_at_age$get_output(FALSE)
+ * catch_at_age$get_output(do_sd_report = FALSE)
  * \endcode
  *
  * @param par A vector of parameter values.
