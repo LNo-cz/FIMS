@@ -73,11 +73,21 @@ class FisheryModelInterfaceBase : public FIMSRcppInterfaceBase {
   virtual ~FisheryModelInterfaceBase() {}
 
   /**
-   * @brief Convert the model to a JSON string.
-   * @param do_sd_report A boolean indicating whether to perform sdreport 
-   * calculations, which should be skipped when MLE optimization is false. 
-   * Default is true.
-   * @return A JSON string representation of the model.
+   * @brief Serialize the fishery model to a JSON string.
+   *
+   * This method provides a standardized interface for converting the state of
+   * a fishery model into a JSON-formatted string. The JSON output is intended
+   * for use in reporting, diagnostics, or data exchange between C++ and R.
+   * Derived classes should override this method to provide model-specific
+   * serialization logic.
+   *
+   * @param do_sd_report A boolean to include standard deviation report
+   * calculations in the output if true. This is typically set to false when
+   * maximum likelihood estimation optimization is not performed, to avoid
+   * unnecessary computations. Default is true.
+   * @return A JSON string representing the current state of the model. The
+   * base implementation returns a placeholder string indicating the method is
+   * not yet implemented.
    */
   virtual std::string to_json(bool do_sd_report = true) {
     return "std::string to_json() not yet implemented.";
@@ -765,10 +775,7 @@ class CatchAtAgeInterface : public FisheryModelInterfaceBase {
         Rcpp::Named("grouped_se") = grouped_out);
   }
   /**
-   * @brief Method to convert the model to a JSON string.
-   * @param do_sd_report  A boolean indicating whether to perform sdreport 
-   * calculations, which should be skipped when MLE optimization is false. 
-   * Default is true.
+   * @copydoc FisheryModelInterfaceBase::to_json
    */
   virtual std::string to_json(bool do_sd_report = true) {
     Rcpp::List report = get_report(do_sd_report);

@@ -149,6 +149,7 @@ ConstraintWorks
 containsNA
 conventionalcommits
 conversiondouble
+copydoc
 cout
 cov
 covr
